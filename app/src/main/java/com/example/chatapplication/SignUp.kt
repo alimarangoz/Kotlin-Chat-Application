@@ -13,6 +13,7 @@ class SignUp : AppCompatActivity() {
     private lateinit var btnLogin: Button
     private lateinit var btnSignUp: Button
     private lateinit var edtName: EditText
+    private lateinit var edtLastName: EditText
     private lateinit var edtEmail: EditText
     private lateinit var edtpassword: EditText
     private lateinit var mAuth: FirebaseAuth
@@ -26,6 +27,7 @@ class SignUp : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
 
         edtName = findViewById(R.id.edt_name)
+        edtLastName = findViewById(R.id.edt_last_name)
         btnLogin = findViewById(R.id.btnLogin)
         btnSignUp = findViewById(R.id.btnSignUp)
         edtEmail = findViewById(R.id.edt_email)
