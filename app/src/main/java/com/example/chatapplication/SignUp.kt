@@ -10,7 +10,6 @@ import com.google.firebase.auth.FirebaseAuth
 
 class SignUp : AppCompatActivity() {
 
-    private lateinit var btnLogin: Button
     private lateinit var btnSignUp: Button
     private lateinit var edtName: EditText
     private lateinit var edtLastName: EditText
@@ -28,7 +27,6 @@ class SignUp : AppCompatActivity() {
 
         edtName = findViewById(R.id.edt_name)
         edtLastName = findViewById(R.id.edt_last_name)
-        btnLogin = findViewById(R.id.btnLogin)
         btnSignUp = findViewById(R.id.btnSignUp)
         edtEmail = findViewById(R.id.edt_email)
         edtpassword = findViewById(R.id.edt_password)
