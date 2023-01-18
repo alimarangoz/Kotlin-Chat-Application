@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="main_color">#A7B1D4</color>
     <color name="green">#008000</color>
+    <color name="receive_message_color">#8BF76A</color>
 </resources>
