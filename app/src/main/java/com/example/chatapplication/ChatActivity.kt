@@ -45,6 +45,7 @@ class ChatActivity : AppCompatActivity() {
         chatRecyclerView.adapter = messageAdapter
 
         //logic for adding data to the recyclerView
+        //TODO(Paging for messages)
 
         mDbRef.child("chats").child(senderRoom!!).child("messages")
             .addValueEventListener(object: ValueEventListener{

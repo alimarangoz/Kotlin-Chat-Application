@@ -29,6 +29,8 @@ class Login : AppCompatActivity() {
         btnLogin = findViewById(R.id.btnLogin)
         btnSignUp = findViewById(R.id.btnSignUp)
 
+        var isAllFieldsChecked = false
+
         btnSignUp.setOnClickListener {
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
@@ -38,7 +40,12 @@ class Login : AppCompatActivity() {
             val email = edtEmail.text.toString()
             val password = edtpassword.text.toString()
 
-            login(email,password);
+            isAllFieldsChecked = checkAllFields()
+
+            if(isAllFieldsChecked){
+                login(email,password)
+            }
+
         }
 
     }
@@ -55,6 +62,20 @@ class Login : AppCompatActivity() {
                     Toast.makeText(this@Login, "User does not exist!",Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    private fun checkAllFields(): Boolean{
+        if(edtEmail.length() == 0){
+
+            edtEmail.error = "Email field is required!"
+            return false
+
+        }else if (edtpassword.length() == 0){
+
+            edtpassword.error = "Password field is required!"
+            return false
+        }
+        return true
     }
 
 }
