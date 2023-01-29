@@ -2,12 +2,16 @@ package com.example.chatapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.ActionBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import java.util.Objects
 
 class ChatActivity : AppCompatActivity() {
 
@@ -19,8 +23,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var mDbRef: DatabaseReference
 
     //Create unique room for sender and receiver, message will be private
-    var receiverRoom: String? = null
-    var senderRoom: String? = null
+    private var receiverRoom: String? = null
+    private var senderRoom: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +33,26 @@ class ChatActivity : AppCompatActivity() {
         val name = intent.getStringExtra("name")
         val receiverUid = intent.getStringExtra("uid")
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid
-        mDbRef = FirebaseDatabase.getInstance().getReference()
+        mDbRef = FirebaseDatabase.getInstance().reference
         senderRoom = receiverUid + senderUid
         receiverRoom = senderUid + receiverUid
 
-        supportActionBar?.title = name
+        Objects.requireNonNull(supportActionBar)?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+
+        supportActionBar?.setCustomView(R.layout.chat_section_action_bar)
+
+        val view : View = supportActionBar?.customView!!
+
+        val nameView : TextView = view.findViewById(R.id.action_bar_name_txt)
+
+        nameView.text = name
+
+        val backButton : ImageView = view.findViewById(R.id.back_button)
+
+        backButton.setOnClickListener {
+            onBackPressed()
+        }
+
 
         chatRecyclerView = findViewById(R.id.chatRecyclerView)
         messageBox = findViewById(R.id.messageBox)
@@ -57,6 +76,7 @@ class ChatActivity : AppCompatActivity() {
 
                         val message = postSnapshot.getValue(Message::class.java)
                         messageList.add(message!!)
+                        chatRecyclerView.scrollToPosition(messageList.size - 1)
 
                     }
                     messageAdapter.notifyDataSetChanged()
